@@ -5,11 +5,9 @@
  * Authors: groothuisss & IMMRMKW
  */
 
-#include "esphome/core/log.h"
+
 #include "fusb302.h"
-#include "PD_UFP.h"
-#include "PD_UFP_Protocol.h"
-#include <Arduino.h>
+
 
 namespace esphome {
 namespace fusb302 {
@@ -41,8 +39,9 @@ void FUSB302::setup() {
             maxPowerSettingPDProtocol = PD_POWER_OPTION_MAX_20V;
             break;
     }
+	PD_UFP.set_fusb302_int_pin(this->interrupt_pin_->get_pin());
 
-    PD_UFP.init(maxPowerSettingPDProtocol, this->interrupt_pin_->get_pin());
+    PD_UFP.init(maxPowerSettingPDProtocol);
 }
 
 void FUSB302::loop() {
