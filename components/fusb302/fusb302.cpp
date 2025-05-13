@@ -16,7 +16,9 @@ namespace fusb302 {
 
     void FUSB302::setup()
     {
-        Wire.begin();
+
+        PD_UFP.set_i2c_address(address_);
+        PD_UFP.set_i2c_bus(this->bus_);
 
         auto maxPowerSettingPDProtocol = PD_POWER_OPTION_MAX_5V;
         switch (maximum_supply_voltage_) {
@@ -53,6 +55,7 @@ namespace fusb302 {
         if (!PD_UFP.is_PPS_ready() && !PD_UFP.is_power_ready()) {
             ESP_LOGD(TAG, "ERROR: Neither PPS_ready or power_ready returned True.");
         }
+        dump_config();
     }
 
     void FUSB302::update()
@@ -83,6 +86,7 @@ namespace fusb302 {
         }
 
         LOG_PIN("  Interrupt pin: ", this->interrupt_pin_);
+        ESP_LOGCONFIG(TAG, "  I2C address: 0x%02X", this->address_);
     }
 
 } // namespace fusb302

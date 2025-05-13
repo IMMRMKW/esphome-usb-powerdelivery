@@ -7,6 +7,9 @@ external_components:
       ref: master # Branch or tag name
     components: fusb302 # Which components to include from this source
 
+i2c:
+  sda: GPIO2
+  scl: GPIO1
 
 fusb302:
   maximum_supply_voltage: 9v # [5v, 9v, 12v, 15v, 20v]: The maximum permissible supply voltage as provided by a USB PD capable power supply; depends on the capabilities of the peripheral that you run this code on
